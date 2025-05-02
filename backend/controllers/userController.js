@@ -132,6 +132,7 @@ module.exports = {
     showLogin: function(req, res){
         res.render('user/login');
     },
+
     
 
     login: function(req, res, next){

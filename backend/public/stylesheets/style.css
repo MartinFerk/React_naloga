@@ -16,3 +16,17 @@ nav ul{
 nav ul li a{
   text-decoration: none;
 }
+img {
+  max-width: 400px;
+  height: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.photo-img {
+  max-width: 400px;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}

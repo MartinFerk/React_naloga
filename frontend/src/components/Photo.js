@@ -42,13 +42,22 @@ function Photo(props) {
 
     return (
         <div className="card bg-light text-dark mb-4" style={{ width: "300px", border: "1px solid #ccc" }}>
+            {isLoggedIn ? (
             <a href={`/photo/${props.photo._id}`}>
-            <img 
-                src={"http://localhost:3001/" + props.photo.path} 
-                alt={props.photo.name} 
-                style={{ width: "100%", height: "auto" }} 
-            />
+                <img 
+                    src={"http://localhost:3001/" + props.photo.path} 
+                    alt={props.photo.name} 
+                    style={{ width: "100%", height: "auto" }} 
+                />
             </a>
+            ) : (
+                <img 
+                    src={"http://localhost:3001/" + props.photo.path} 
+                    alt={props.photo.name} 
+                    style={{ width: "100%", height: "auto", cursor: "not-allowed", opacity: 0.8 }} 
+                    title="Za podrobnosti se prijavi." 
+                />
+            )}
             <div className="card-body">
                 <h5 className="card-title">{props.photo.name}</h5>
                 <p className="card-text">Objavil: {props.photo.postedBy?.username ?? "neznano"}</p>
@@ -56,10 +65,10 @@ function Photo(props) {
 
                 {isLoggedIn && (
                     <>
-                        <button className="btn btn-outline-success me-2" onClick={handleLike}>
+                        <button className="btn btn-outline-success me-2" >
                             👍 {likes}
                         </button>
-                        <button className="btn btn-outline-danger" onClick={handleDislike}>
+                        <button className="btn btn-outline-danger">
                             👎 {dislikes}
                         </button>
                     </>
@@ -67,15 +76,6 @@ function Photo(props) {
 
                 <hr />
                 <p>Objavljeno: {new Date(props.photo.createdAt).toLocaleString()}</p>
-
-                <h6>Komentarji</h6>
-                <CommentList comments={comments} />
-
-                {isLoggedIn ? (
-                    <CommentForm photoId={props.photo._id} onCommentAdded={handleNewComment} />
-                ) : (
-                    <p className="text-muted">Prijavi se za komentiranje in glasovanje.</p>
-                )}
             </div>
         </div>
     );

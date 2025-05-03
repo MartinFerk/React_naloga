@@ -12,7 +12,11 @@ var photoSchema = new Schema({
 	'likes' : Number,
 	'dislikes':Number,
 	'message': String,
-	'comments': [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+	'comments': [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+	createdAt: {
+		type: Date,
+		default: Date.now
+	  }
 
 });
 

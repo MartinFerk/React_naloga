@@ -1,20 +1,17 @@
-import { useEffect, useContext } from 'react';
-import { UserContext } from '../userContext';
+import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 function Logout(){
-    const userContext = useContext(UserContext); 
-    useEffect(function(){
-        const logout = async function(){
-            userContext.setUserContext(null);
-            const res = await fetch("http://localhost:3001/users/logout");
-        }
+    useEffect(() => {
+        const logout = async () => {
+            localStorage.removeItem("user"); // 🧹 pobriši lokalno stanje
+            await fetch("http://localhost:3001/users/logout", { credentials: 'include' });
+            window.location.reload(); // 🔁 osveži stanje brez ročnega refresh
+        };
         logout();
     }, []);
 
-    return (
-        <Navigate replace to="/" />
-    );
+    return <Navigate replace to="/" />;
 }
 
 export default Logout;

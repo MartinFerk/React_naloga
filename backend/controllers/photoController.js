@@ -11,7 +11,7 @@ module.exports = {
      * photoController.list()
      */
     list: function (req, res) {
-        PhotoModel.find()
+        PhotoModel.find().sort({ createdAt: -1 })
         .populate('postedBy')
         .exec(function (err, photos) {
             if (err) {

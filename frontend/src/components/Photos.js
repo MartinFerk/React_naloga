@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Photo from './Photo';
+const user = JSON.parse(localStorage.getItem("user"));
 
 function Photos(){
     const [photos, setPhotos] = useState([]);
@@ -17,7 +18,7 @@ function Photos(){
             <h1>Photos:</h1>
   {photos.map(photo => (
     <div style={{ marginBottom: "20px", marginLeft: "20px" }} key={photo._id}>
-      <Photo photo={photo} />
+      <Photo photo={photo} user={user} key={photo._id} />
     </div>
   ))}
 </div>

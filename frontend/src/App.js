@@ -8,7 +8,7 @@ import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Logout from "./components/Logout";
 import AddPhoto from "./components/AddPhoto";
-
+import PhotoDetail from './components/PhotoDetail';
 function App() {
   /**
    * Podatek o tem, ali je uporabnik prijavljen ali ne, bomo potrebovali v vseh komponentah.
@@ -53,6 +53,7 @@ function App() {
             <Route path="/publish" element={<AddPhoto />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/logout" element={<Logout />}></Route>
+            <Route path="/photo/:id" element={<PhotoDetail />}></Route>
           </Routes>
         </div>
       </UserContext.Provider>

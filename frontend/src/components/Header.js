@@ -1,33 +1,43 @@
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../userContext";
-import { Link } from "react-router-dom";
 
 function Header(props) {
-    return (
-        <header>
-            <h1>{props.title}</h1>
-            <nav>
-                <ul>
-                    <li><Link to='/'>Home</Link></li>
-                    <UserContext.Consumer>
-                        {context => (
-                            context.user ?
-                                <>
-                                    <li><Link to='/publish'>Publish</Link></li>
-                                    <li><Link to='/profile'>Profile</Link></li>
-                                    <li><Link to='/logout'>Logout</Link></li>
-                                </>
-                            :
-                                <>
-                                    <li><Link to='/login'>Login</Link></li>
-                                    <li><Link to='/register'>Register</Link></li>
-                                </>
+    const { user } = useContext(UserContext);
 
-                        )}
-                    </UserContext.Consumer>
+    return (
+        <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+            <div className="container-fluid">
+                <span className="navbar-brand fw-bold fs-3">Vaja 3 - react</span>
+                <ul className="navbar-nav ms-auto">
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/">Home</Link>
+                    </li>
+                    {user ? (
+                        <>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/publish">Publish</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/profile">Profile</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link text-danger" to="/logout">Logout</Link>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/login">Login</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/register">Register</Link>
+                            </li>
+                        </>
+                    )}
                 </ul>
-            </nav>
-        </header >
+            </div>
+        </nav>
     );
 }
 

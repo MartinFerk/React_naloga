@@ -63,17 +63,13 @@ function Photo(props) {
                 <p className="card-text">Objavil: {props.photo.postedBy?.username ?? "neznano"}</p>
                 <p>Opis: {props.photo.message ?? "ni opisa"}</p>
 
-                {isLoggedIn && (
-                    <>
                         <button className="btn btn-outline-success me-2" >
                             👍 {likes}
                         </button>
                         <button className="btn btn-outline-danger">
                             👎 {dislikes}
                         </button>
-                    </>
-                )}
-
+                    
                 <hr />
                 <p>Objavljeno: {new Date(props.photo.createdAt).toLocaleString()}</p>
             </div>

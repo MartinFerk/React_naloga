@@ -1,14 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import CommentList from './CommentList';
+import CommentForm from './CommentForm';
 
 function Photo(props) {
     const [likes, setLikes] = useState(props.photo.likes ?? 0);
     const [dislikes, setDislikes] = useState(props.photo.dislikes ?? 0);
+    const [comments, setComments] = useState([]);
+
+    const fetchComments = async () => {
+        const res = await fetch(`http://localhost:3001/photos/${props.photo._id}/comments`);
+        const data = await res.json();
+        setComments(Array.isArray(data) ? data : []);
+
+    };
+    
+    useEffect(() => {
+        fetchComments();
+    }, []);
 
     const handleLike = async () => {
-        console.log("Kliknjen like gumb za: ", props.photo._id); // ➕ test
+        console.log("Kliknjen like gumb za: ", props.photo._id); 
         const res = await fetch(`http://localhost:3001/photos/${props.photo._id}/like`, { method: "PUT" });
         const updated = await res.json();
-        console.log("Response from backend:", updated); // ➕ test
+        console.log("Response from backend:", updated);
         setLikes(updated.likes ?? 0);
     };
 
@@ -16,6 +30,9 @@ function Photo(props) {
         const res = await fetch(`http://localhost:3001/photos/${props.photo._id}/dislike`, { method: "PUT" });
         const updated = await res.json();
         setDislikes(updated.dislikes ?? 0);
+    };
+    const handleNewComment = () => {
+        fetchComments();
     };
 
     return (
@@ -35,9 +52,14 @@ function Photo(props) {
                 <button className="btn btn-outline-danger" onClick={handleDislike}>
                     👎 {dislikes}
                 </button>
+                <hr />
+                <h6>Komentarji</h6>
+                <CommentList comments={comments} />
+                <CommentForm photoId={props.photo._id} onCommentAdded={handleNewComment} />
             </div>
         </div>
     );
 }
+
 
 export default Photo;

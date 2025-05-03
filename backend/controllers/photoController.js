@@ -60,7 +60,9 @@ module.exports = {
 			path : "/images/"+req.file.filename,
 			postedBy : req.session.userId,
 			views : 0,
-			likes : 0
+			likes : 0,
+            dislikes:0,
+            message: req.body.message
         });
 
         photo.save(function (err, photo) {
@@ -135,5 +137,22 @@ module.exports = {
 
     publish: function(req, res){
         return res.render('photo/publish');
+    },
+
+    like: function (req, res) {
+        const id = req.params.id;
+        PhotoModel.findByIdAndUpdate(id, { $inc: { likes: 1 } }, { new: true }, (err, updatedPhoto) => {
+            if (err) return res.status(500).json({ error: err });
+            return res.json(updatedPhoto);
+        });
+    },
+    
+    dislike: function (req, res) {
+        const id = req.params.id;
+        PhotoModel.findByIdAndUpdate(id, { $inc: { dislikes: 1 } }, { new: true }, (err, updatedPhoto) => {
+            if (err) return res.status(500).json({ error: err });
+            return res.json(updatedPhoto);
+        });
     }
+    
 };

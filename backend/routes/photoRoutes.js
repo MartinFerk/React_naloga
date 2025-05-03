@@ -21,8 +21,11 @@ router.get('/', photoController.list);
 router.get('/:id', photoController.show);
 
 router.post('/', requiresLogin, upload.single('image'), photoController.create);
-
+router.put('/:id/like', photoController.like);
+router.put('/:id/dislike', photoController.dislike);
 router.put('/:id', photoController.update);
+
+
 
 router.delete('/:id', photoController.remove);
 

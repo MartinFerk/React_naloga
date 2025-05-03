@@ -1,8 +1,14 @@
-<h1>Dodaj sliko</h1>
-<form action="/photos" method="post" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="ime slike" required>
-    <input type="file" name="image">
-    <div class="tp">
-        <input type="submit" value="Dodaj">
-    </div>
+
+
+<form action="/photos/publish" method="post" enctype="multipart/form-data">
+    <label for="name">Naslov slike:</label>
+    <input type="text" name="name" id="name" required>
+
+    <label for="message">Sporočilo:</label>
+    <textarea name="message" id="message"></textarea> <!-- 👈 novo -->
+
+    <label for="photo">Slika:</label>
+    <input type="file" name="photo" id="photo" required>
+
+    <button type="submit">Objavi</button>
 </form>

@@ -14,6 +14,7 @@ function Photos(){
 
     return(
         <div>
+            <h1>Photos:</h1>
   {photos.map(photo => (
     <div style={{ marginBottom: "20px", marginLeft: "20px" }} key={photo._id}>
       <Photo photo={photo} />
